@@ -56,7 +56,8 @@ Copy example env:
 cp .env.example .env
 ``` 
 
-Make sure it includes
+Make sure it includes:
+
 DATABASE_URL=postgres://postgres:postgres@db:5432/rails_health_api_development
 DATABASE_URL_TEST=postgres://postgres:postgres@db:5432/rails_health_api_test
 DEVISE_JWT_SECRET_KEY=replace_me_with_a_long_random_string
@@ -107,4 +108,37 @@ Content-Type: application/json
 }
 ```
 
+
+Log in
+
+```bash
+POST http://localhost:3000/auth/login
+```
+
+Headers:
+Content-Type: application/json
+
+
+```json
+{
+  "user": {
+    "email": "patient1@example.com",
+    "password": "Password123!"
+  }
+}
+```
+Check response headers for:
+
+Authorization: Bearer <JWT>
+
+Call protected endpoint
+
+
+```bash
+GET http://localhost:3000/api/v1/patient_records
+```
+
+Authorization: Bearer <JWT>
+
+Content-Type: application/json
 
