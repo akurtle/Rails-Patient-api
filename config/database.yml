@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  url: <%= ENV["DATABASE_URL"] %>
+
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: health_api_development
+  username: postgres
+  password: 123
+  host: db
+  port: 5432
+
+test:
+  <<: *default
+  url: <%= ENV["DATABASE_URL_TEST"] || "postgres://postgres:postgres@db:5432/rails_health_api_test" %>
+
+production:
+  <<: *default
