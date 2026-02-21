@@ -3,7 +3,7 @@
 A Rails 7 **API-only** backend built to demonstrate **PostgreSQL relational modeling**, **JWT authentication**, **RBAC authorization**, **Docker containerization**, and **REST API design**.
 
 ## Tech Stack
-- **Ruby**: 3.4.x (Docker image)
+- **Ruby**: 3.4.8 (Docker image)
 - **Rails**: 7.1.6 (API-only)
 - **Database**: PostgreSQL
 - **Auth**: Devise + Devise-JWT
@@ -63,5 +63,48 @@ DEVISE_JWT_SECRET_KEY=replace_me_with_a_long_random_string
 
 
 Build and start containers
-
+```bash 
 docker compose up -d --build
+```
+
+Create Database and migrate
+
+```bash
+docker compose exec web bundle exec rails db:create db:migrate
+```
+
+
+Check healthpoint 
+
+```bash
+http://localhost:3000/health
+```
+
+Expected:
+```bash
+{"status":"ok"}
+```
+
+
+Sign Up
+
+```bash
+POST http://localhost:3000/auth/signup
+```
+
+Headers:
+Content-Type: application/json
+
+
+```json
+{
+  "user": {
+    "email": "patient1@example.com",
+    "password": "Password123!",
+    "password_confirmation": "Password123!",
+    "role": "patient"
+  }
+}
+```
+
+
